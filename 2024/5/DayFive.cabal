@@ -1,0 +1,7 @@
+name: DayFive
+version: 1.0.0
+executable DayFive
+    main-is: DayFive.hs
+    build-depends: 
+        split,
+        containers
