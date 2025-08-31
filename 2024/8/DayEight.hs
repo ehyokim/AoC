@@ -12,14 +12,14 @@ data Grid = Grid [String] Bounds
 data Distance = Dis {xDis :: Int, yDis :: Int}
 
 main = readFile "./input" >>= \file -> do  let gridlst = lines file
-                                           let grid = Grid gridlst ((length .head) gridlst - 1, length gridlst - 1)
+                                           let grid = Grid gridlst ((length . head) gridlst - 1, length gridlst - 1)
                                            let freqMap = constFreqMap grid
                                            print $ countAntiNodes grid freqMap
 
 
 countAntiNodes :: Grid -> TowerFreqMap -> Int
 countAntiNodes (Grid _ bounds) freqMap = length $ List.nub totalAN
-    where totalAN = Map.foldr (\x s -> (++ s) $ concatMap (getAntiNodes bounds) $ genComb x) [] freqMap
+    where totalAN = Map.foldr ((++) . concatMap (getAntiNodes bounds) . genComb) [] freqMap
 
 constFreqMap :: Grid -> TowerFreqMap
 constFreqMap (Grid gridlst (boundx, boundy)) = Map.fromListWith sortFunc towerFreqPairs
